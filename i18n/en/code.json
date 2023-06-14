@@ -33,7 +33,7 @@
     "message": "SEO"
   },
   "showcase.tag.seo.description": {
-    "message": "Keyword Expansion Generation"
+    "message": "Prompt Expansion Generation"
   },
   "点评/评鉴": {
     "message": "Reviews"
@@ -181,7 +181,7 @@
     "message": "All prompts"
   },
   "已复制": {
-    "message": "Copyed"
+    "message": "Copied"
   },
   "复制": {
     "message": "Copy"
@@ -477,9 +477,6 @@
     "message": "Tags",
     "description": "The title of the tag list page"
   },
-  "ChatGPT Shortcut - 简单易用的 ChatGPT 快捷指令表，让生产力倍增！标签筛选、关键词搜索和一键复制 Prompts": {
-    "message": "ChatGPT Shortcut - A simple and user-friendly ChatGPT shortcut command list that doubles productivity! Includes label filtering, keyword search, and one-click prompt copying."
-  },
   "教育/学生": {
     "message": "Pedagogy"
   },
@@ -497,5 +494,262 @@
   },
   "showcase.tag.latest.description": {
     "message": "Recently added prompts"
+  },
+  "feedback.title": {
+    "message": "Feedback and suggestions"
+  },
+  "feedback.description": {
+    "message": "您的反馈对我们很重要！"
+  },
+  "feedback.welcome": {
+    "message": "Feedback and suggestions",
+    "description": "The welcome title on the feedback page"
+  },
+  "feedback.paragraph": {
+    "message": "We cordially invite you to provide suggestions, ideas, and prompts to continuously enhance ChatGPT Shortcut, thereby improving personal efficiency and productivity. If you encounter any bugs, please provide the relevant link and details of the issue. When it comes to prompt suggestions, you may submit content in multiple languages or simply describe your thoughts on the desired prompts. We look forward to expanding our collective knowledge and generating high-quality outputs through these suggestions. Once your submitted prompts are published, your contributions will be credited on the page. You can search for entries associated with your contributor name (username).",
+    "description": "The main paragraph on the feedback page"
+  },
+  "收藏": {
+    "message": "Favorite"
+  },
+  "个人提示词": {
+    "message": "Your Prompts"
+  },
+  "你的提示词": {
+    "message": "Your Prompts"
+  },
+  "input.rules.username": {
+    "message": "Please enter username or mail!"
+  },
+  "input.rules.password": {
+    "message": "Please enter your password!"
+  },
+  "input.rules.email": {
+    "message": "Please input your email!"
+  },
+  "message.error": {
+    "message": "Entry submission failed, please try again later"
+  },
+  "message.loginSuccess": {
+    "message": "Login successful!"
+  },
+  "message.registerSuccess": {
+    "message": "Registration success!"
+  },
+  "input.username": {
+    "message": "Username/Mail"
+  },
+  "input.password": {
+    "message": "Password"
+  },
+  "button.login": {
+    "message": "Log in"
+  },
+  "input.register.username": {
+    "message": "Username"
+  },
+  "input.email": {
+    "message": "Mail"
+  },
+  "agreement.rules": {
+    "message": "Agree to terms of service and privacy policy before use"
+  },
+  "agreement.text": {
+    "message": "Click here to agree "
+  },
+  "agreement.terms": {
+    "message": "Terms of Service "
+  },
+  "agreement.and": {
+    "message": "and "
+  },
+  "agreement.policy": {
+    "message": "Privacy Policy"
+  },
+  "button.register": {
+    "message": "Register"
+  },
+  "tabs.login": {
+    "message": "Log in"
+  },
+  "tabs.register": {
+    "message": "Register"
+  },
+  "card.welcome": {
+    "message": "Welcome"
+  },
+  "message.success": {
+    "message": "Entry submitted successfully!"
+  },
+  "link.user": {
+    "message": "User Interface"
+  },
+  "button.logout": {
+    "message": "Log out"
+  },
+  "button.addPrompt": {
+    "message": "Add Your Prompt"
+  },
+  "点击移除收藏": {
+    "message": "Click to remove favorite"
+  },
+  "message.changePassword.success": {
+    "message": "Password reset complete!"
+  },
+  "error.changePassword": {
+    "message": "Error changing password:"
+  },
+  "message.changePassword.error": {
+    "message": "Password modification failed, please try again later"
+  },
+  "message.forgotPassword.success": {
+    "message": "Password reset email sent!"
+  },
+  "error.forgotPassword": {
+    "message": "Error sending forgot password email:"
+  },
+  "message.forgotPassword.error": {
+    "message": "Failed to send password reset email, please try again later"
+  },
+  "message.loading": {
+    "message": "Loading..."
+  },
+  "label.changePassword": {
+    "message": "Change Password"
+  },
+  "input.currentPassword": {
+    "message": "Please enter the current password!"
+  },
+  "placeholder.currentPassword": {
+    "message": "Current Password"
+  },
+  "input.newPassword": {
+    "message": "Please enter a new password!"
+  },
+  "placeholder.newPassword": {
+    "message": "New Password"
+  },
+  "input.confirmPassword": {
+    "message": "Please confirm the new password!"
+  },
+  "placeholder.confirmPassword": {
+    "message": "Confirm the new password"
+  },
+  "button.changePassword": {
+    "message": "Change Password"
+  },
+  "label.forgotPassword": {
+    "message": "Forget the password"
+  },
+  "placeholder.email": {
+    "message": "Mail"
+  },
+  "button.sendResetEmail": {
+    "message": "Send reset email"
+  },
+  "link.home": {
+    "message": "Return Home"
+  },
+  "title.userInfo": {
+    "message": "User Info"
+  },
+  "userInfo.username": {
+    "message": "Username:"
+  },
+  "userInfo.email": {
+    "message": "Mail:"
+  },
+  "AiShort (ChatGPT Shortcut) - 简单易用的 ChatGPT 快捷指令表，让生产力倍增！标签筛选、关键词搜索和一键复制 Prompts": {
+    "message": "AiShort (ChatGPT Shortcut) - A simple and user-friendly ChatGPT shortcut command list that doubles productivity! Includes label filtering, prompt search, and one-click prompt copying."
+  },
+  "message.resetPassword.success": {
+    "message": "Password reset successful!"
+  },
+  "error.resetPassword": {
+    "message": "Error resetting password:"
+  },
+  "message.resetPassword.error": {
+    "message": "Password reset failed, please try again later"
+  },
+  "button.resetPassword": {
+    "message": "Reset Password"
+  },
+  "message.forgotPassword": {
+    "message": "An email to reset your password has been sent to your mailbox."
+  },
+  "tabs.forgotPassword": {
+    "message": "Forget the password"
+  },
+  "button.forgotPassword": {
+    "message": "Forgot Password"
+  },
+  "input.resetPassword.code": {
+    "message": "Please enter your reset code!"
+  },
+  "placeholder.resetPassword.code": {
+    "message": "Reset code"
+  },
+  "link.addprompt": {
+    "message": "Add a custom prompt"
+  },
+  "modal.addprompt.title": {
+    "message": "Share Prompt (This content will appear in the 'Your Prompts' tab)"
+  },
+  "message.addprompt.requiredTitle": {
+    "message": "Please enter the prompt title!"
+  },
+  "input.addprompt.title": {
+    "message": "Prompt title"
+  },
+  "message.addprompt.requiredDescription": {
+    "message": "Please enter the prompt content!"
+  },
+  "input.addprompt.description": {
+    "message": "Prompt content"
+  },
+  "input.addprompt.remark": {
+    "message": "Explanation of Prompt Function (optional)"
+  },
+  "input.addprompt.notes": {
+    "message": "Note (optional): You can provide a source explanation for the prompts and include their other language versions here. Additionally, if you have any expansion ideas or specific requirements regarding the prompts, please provide details in this section."
+  },
+  "message.addprompt.submission": {
+    "message": "We may make appropriate modifications and translations to the prompts you submit and share them on the public page, while acknowledging your username in the entry. Thank you very much for your contribution and understanding."
+  },
+  "message.success1": {
+    "message": "Click on the label 'Your Prompt' to view the custom prompts that have been added."
+  },
+  "message.deletePrompt.confirm.title": {
+    "message": "Confirm Delete"
+  },
+  "message.deletePrompt.confirm.content": {
+    "message": "Are you sure you want to delete this prompt?"
+  },
+  "message.deletePrompt.success": {
+    "message": "Prompt successfully deleted!"
+  },
+  "message.deletePrompt.error": {
+    "message": "Failed to delete prompt, please try again later."
+  },
+  "link.deleteprompt": {
+    "message": "Delete"
+  },
+  "link.updateprompt": {
+    "message": "Edit"
+  },
+  "modal.updateprompt.title": {
+    "message": "Edit the Prompt"
+  },
+  "button.updateprompt": {
+    "message": "Update the Prompt"
+  },
+  "tooltip.deleteprompt": {
+    "message": "Delete"
+  },
+  "tooltip.updateprompt": {
+    "message": "Edit"
+  },
+  "comments.info": {
+    "message": "Kindly provide your opinions, thoughts, or insights regarding the given prompt in the space below."
   }
 }

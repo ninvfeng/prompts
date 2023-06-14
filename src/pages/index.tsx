@@ -1,4 +1,5 @@
 import React, {
+  useContext,
   useState,
   useMemo,
   useEffect,
@@ -13,7 +14,7 @@ import { useHistory, useLocation } from "@docusaurus/router";
 import { usePluralForm } from "@docusaurus/theme-common";
 import { debounce } from "lodash";
 
-import Link from "@docusaurus/Link";
+//import Link from "@docusaurus/Link";
 import Layout from "@theme/Layout";
 import FavoriteIcon from "@site/src/components/svgIcons/FavoriteIcon";
 import {
@@ -33,13 +34,16 @@ import ShowcaseFilterToggle, {
 } from "./_components/ShowcaseFilterToggle";
 import ShowcaseTooltip from "./_components/ShowcaseTooltip";
 import ShowcaseCard from "./_components/ShowcaseCard";
-import { fetchAllCopyCounts } from "../api";
+import UserStatus from "./_components/UserStatus";
+import UserPrompts from "./_components/UserPrompts";
+import { AuthContext, AuthProvider } from './_components/AuthContext';
+import { fetchAllCopyCounts} from "@site/src/api";
 
 import styles from "./styles.module.css";
 
 const TITLE = translate({
   message:
-    "ChatGPT Shortcut - 简单易用的 ChatGPT 快捷指令表，让生产力倍增！标签筛选、关键词搜索和一键复制 Prompts",
+    "AiShort (ChatGPT Shortcut) - 简单易用的 ChatGPT 快捷指令表，让生产力倍增！标签筛选、关键词搜索和一键复制 Prompts",
 });
 const DESCRIPTION = translate({
   message: "让生产力加倍的 ChatGPT 快捷指令",
@@ -86,6 +90,7 @@ function filterUsers(
   searchName: string | null
 ) {
   if (searchName) {
+    const lowercaseSearchName = searchName.toLowerCase();
     // eslint-disable-next-line no-param-reassign
     // 搜索范围
     users = users.filter((user) =>
@@ -98,7 +103,7 @@ function filterUsers(
         user.remark_en
       )
         .toLowerCase()
-        .includes(searchName.toLowerCase())
+        .includes(lowercaseSearchName)
     );
   }
   if (selectedTags.length === 0) {
@@ -172,6 +177,13 @@ function useSiteCountPlural() {
 }
 
 function ShowcaseFilters({ onToggleDescription }) {
+  //通过登陆用户名判断是否开启用户标签按钮
+  const [showUserPrompts, setShowUserPrompts] = useState(false);
+  const handleClick = () => {
+    setShowUserPrompts(!showUserPrompts);
+  }
+
+  const { userAuth } = useContext(AuthContext);
   const filteredUsers = useFilteredUsers();
   const siteCountPlural = useCallback(useSiteCountPlural(), []);
   const { i18n } = useDocusaurusContext();
@@ -197,6 +209,36 @@ function ShowcaseFilters({ onToggleDescription }) {
         <ShowcaseFilterToggle />
       </div>
       <ul className={clsx("clean-list", styles.checkboxList)}>
+        {/* 登陆用户标签按钮 */}
+        {userAuth && (
+        <li className={styles.checkboxListItem} onClick={handleClick}>
+          <ShowcaseTooltip
+            text={translate({
+              message: "个人提示词",
+            })}
+            anchorEl="#__docusaurus"
+          >
+            <ShowcaseTagSelect
+              tag="yourprompt"
+              label={translate({
+                message: "你的提示词",
+              })}
+              icon={
+                (
+                  <span
+                    style={{
+                      backgroundColor: "#a2222a",
+                      width: 10,
+                      height: 10,
+                      borderRadius: "50%",
+                      marginLeft: 8,
+                    }}
+                  />
+                )
+              }
+            />
+          </ShowcaseTooltip>
+        </li>)}
         {TagList.map((tag, i) => {
           const { label, description, color } = Tags[tag];
           const id = `showcase_checkbox_id_${tag}`;
@@ -233,24 +275,10 @@ function ShowcaseFilters({ onToggleDescription }) {
           );
         })}
       </ul>
+      {showUserPrompts && <UserPrompts />}
     </section>
   );
 }
-
-const [favoriteUsers, otherUsers] = sortedUsers.reduce(
-  ([favorites, others], user) => {
-    if (user.tags.includes("favorite")) {
-      favorites.push(user);
-    } else {
-      others.push(user);
-    }
-    return [favorites, others];
-  },
-  [[], []]
-);
-
-favoriteUsers.sort((a, b) => b.weight - a.weight);
-otherUsers.sort((a, b) => b.weight - a.weight);
 
 function SearchBar() {
   const history = useHistory();
@@ -282,7 +310,7 @@ function SearchBar() {
         search: newSearch.toString(),
         state: prepareUserState(),
       });
-    }, 800), //搜索延时
+    }, 1000), //搜索延时
     [location, history]
   );
 
@@ -328,6 +356,41 @@ function SearchBar() {
 
 function ShowcaseCards({ isDescription }) {
   const [copyCounts, setCopyCounts] = useState({});
+  const { userAuth } = useContext(AuthContext);
+  const [userLoves, setUserLoves] = useState(() => userAuth?.data?.favorites?.loves || []);
+
+  // 当 userAuth 改变时，更新 userLoves 的值
+  useEffect(() => {
+    setUserLoves(userAuth?.data?.favorites?.loves || []);
+  }, [userAuth]);
+
+  const [favoriteUsers, otherUsers] = sortedUsers.reduce(
+    ([favorites, others], user) => {
+      //登陆后移除默认的收藏标签
+      if (userAuth) {
+        if (user.tags.includes("favorite")) {
+          const index = user.tags.indexOf("favorite");
+          if (index > -1) {
+            user.tags.splice(index, 1);
+          }
+        }
+      }
+      if (userLoves && userLoves.includes(user.id) && !user.tags.includes("favorite")) {
+        //user.weight += 100000; // If user is loved by current user, add a very large number to its weight
+        user.tags.push("favorite"); 
+      }
+      if (user.tags.includes("favorite")) {
+        favorites.push(user);
+      } else {
+        others.push(user);
+      }
+      return [favorites, others];
+    },
+    [[], []]
+  );
+
+  favoriteUsers.sort((a, b) => b.weight - a.weight);
+  otherUsers.sort((a, b) => b.weight - a.weight);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -390,6 +453,7 @@ function ShowcaseCards({ isDescription }) {
                     isDescription={isDescription}
                     copyCount={copyCounts[user.id] || 0}
                     onCopy={handleCardCopy}
+                    onLove={setUserLoves}
                   />
                 ))}
               </ul>
@@ -409,6 +473,7 @@ function ShowcaseCards({ isDescription }) {
                   isDescription={isDescription}
                   copyCount={copyCounts[user.id] || 0}
                   onCopy={handleCardCopy}
+                  onLove={setUserLoves}
                 />
               ))}
             </ul>
@@ -429,6 +494,7 @@ function ShowcaseCards({ isDescription }) {
                 isDescription={isDescription}
                 copyCount={copyCounts[user.id] || 0}
                 onCopy={handleCardCopy}
+                onLove={setUserLoves}
               />
             ))}
           </ul>
@@ -446,9 +512,11 @@ export default function Showcase(): JSX.Element {
   return (
     <Layout title={TITLE} description={DESCRIPTION}>
       <main className="margin-vert--lg">
-        <ShowcaseHeader />
-        <ShowcaseFilters onToggleDescription={toggleDescription} />
-        <ShowcaseCards isDescription={isDescription} />
+        <AuthProvider>
+          <ShowcaseHeader />
+          <ShowcaseFilters onToggleDescription={toggleDescription} />
+          <ShowcaseCards isDescription={isDescription} />
+        </AuthProvider>
       </main>
     </Layout>
   );

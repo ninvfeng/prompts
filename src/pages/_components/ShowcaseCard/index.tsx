@@ -1,10 +1,12 @@
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useContext,useState, useEffect, useCallback } from "react";
 import clsx from "clsx";
+import { message, Tooltip } from "antd";
 import Link from "@docusaurus/Link";
 import Translate from "@docusaurus/Translate";
 import copy from "copy-text-to-clipboard";
 //import Image from '@theme/IdealImage';
 import FavoriteIcon from "@site/src/components/svgIcons/FavoriteIcon";
+import { LinkOutlined } from "@ant-design/icons";
 import {
   Tags,
   TagList,
@@ -14,9 +16,14 @@ import {
 } from "@site/src/data/users";
 import { sortBy } from "@site/src/utils/jsUtils";
 import Heading from "@theme/Heading";
-import Tooltip from "../ShowcaseTooltip";
+//import Tooltip from "../ShowcaseTooltip";
 import styles from "./styles.module.css";
-import { updateCopyCount } from "@site/src/api";
+import {
+  updateCopyCount,
+  createFavorite,
+  updateFavorite,
+} from "@site/src/api";
+import { AuthContext } from '../AuthContext';
 
 import useDocusaurusContext from "@docusaurus/useDocusaurusContext";
 
@@ -57,7 +64,9 @@ function ShowcaseCardTag({ tags }: { tags: TagType[] }) {
   );
 }
 
-function ShowcaseCard({ user, isDescription, copyCount, onCopy }) {
+function ShowcaseCard({ user, isDescription, copyCount, onCopy, onLove }) {
+  const { userAuth, refreshUserAuth } = useContext(AuthContext);
+
   const [paragraphText, setParagraphText] = useState(
     isDescription ? user.description : user.desc_cn
   );
@@ -83,6 +92,13 @@ function ShowcaseCard({ user, isDescription, copyCount, onCopy }) {
   //const image = getCardImage(user);
   // 复制
   const [copied, setShowCopied] = useState(false);
+  // 将显示数据单位简化到 k
+  const formatCopyCount = (count) => {
+    if (count >= 1000) {
+      return (count / 1000).toFixed(1) + "k";
+    }
+    return count;
+  };
 
   const handleUseClick = useCallback(async () => {
     try {
@@ -107,23 +123,67 @@ function ShowcaseCard({ user, isDescription, copyCount, onCopy }) {
       console.error("Error updating copy count:", error);
     }
   }, [user.id]);
-  // 将显示数据单位简化到 k
-  const formatCopyCount = (count) => {
-    if (count >= 1000) {
-      return (count / 1000).toFixed(1) + "k";
+
+  const handleLove = useCallback(async () => {
+    try {
+      let userLoves;
+      let favoriteId;
+
+      if (!userAuth.data.favorites) {
+        const createFavoriteResponse = await createFavorite([user.id]);
+        userLoves = [user.id];
+        favoriteId = createFavoriteResponse.data.id;
+      } else {
+        userLoves = userAuth.data.favorites.loves || [];
+        favoriteId = userAuth.data.favorites.id;
+
+        if (!userLoves.includes(user.id)) {
+          userLoves.push(user.id);
+          message.success("Added to favorites successfully!");
+        }
+      }
+
+      await updateFavorite(favoriteId, userLoves);
+      onLove(userLoves);
+      refreshUserAuth();
+    } catch (err) {
+      console.error(err);
     }
-    return count;
-  };
-  
+  }, [user.id, onLove, userAuth, refreshUserAuth]);
+
+  const removeFavorite = useCallback(async () => {
+    try {
+      let userLoves;
+      let favoriteId;
+
+      if (userAuth.data.favorites) {
+        userLoves = userAuth.data.favorites.loves || [];
+        favoriteId = userAuth.data.favorites.id;
+
+        const index = userLoves.indexOf(user.id);
+        if (index > -1) {
+          userLoves.splice(index, 1);
+          message.success("Removed from favorites successfully!");
+        }
+
+        await updateFavorite(favoriteId, userLoves);
+        onLove(userLoves);
+        refreshUserAuth();
+      }
+    } catch (err) {
+      console.error(err);
+    }
+  }, [user.id, onLove, userAuth, refreshUserAuth]);
+
   return (
     <li key={userTitle} className="card shadow--md">
       {/* <div className={clsx('card__image', styles.showcaseCardImage)}>
         <Image img={image} alt={user.title} />
       </div> */}
-      <div className={clsx("card__body", styles.cardBodyHeight)}>
+      <div className={clsx("card__body")}>
         <div className={clsx(styles.showcaseCardHeader)}>
           <Heading as="h4" className={styles.showcaseCardTitle}>
-            <Link href={user.website} className={styles.showcaseCardLink}>
+            <Link href={"/prompt/"+ user.id} className={styles.showcaseCardLink}>
               {userTitle}{" "}
             </Link>
             <span className={styles.showcaseCardBody}>
@@ -131,7 +191,13 @@ function ShowcaseCard({ user, isDescription, copyCount, onCopy }) {
             </span>
           </Heading>
           {user.tags.includes("favorite") && (
-            <FavoriteIcon svgClass={styles.svgIconFavorite} size="small" />
+            <Tooltip
+              title={userAuth ? <Translate>点击移除收藏</Translate> : ""}
+            >
+              <div onClick={userAuth ? removeFavorite : null}>
+                <FavoriteIcon svgClass={styles.svgIconFavorite} size="small" />
+              </div>
+            </Tooltip>
           )}
           {/* {user.source && (
             <Link
@@ -143,6 +209,18 @@ function ShowcaseCard({ user, isDescription, copyCount, onCopy }) {
               <Translate id="showcase.card.sourceLink">source</Translate>
             </Link>
           )} */}
+          {userAuth && !user.tags.includes("favorite") && (
+            <button
+              className={clsx(
+                "button button--secondary button--sm",
+                styles.showcaseCardSrcBtn
+              )}
+              type="button"
+              onClick={handleLove}
+            >
+              <Translate>收藏</Translate>
+            </button>
+          )}
           <button
             className={clsx(
               "button button--secondary button--sm",
@@ -168,12 +246,13 @@ function ShowcaseCard({ user, isDescription, copyCount, onCopy }) {
           </button>
         </div>
         <p className={styles.showcaseCardBody}>👉 {userRemark}</p>
-        <p onClick={handleParagraphClick} className={styles.showcaseCardBody}>
+        <p onClick={handleParagraphClick} className={styles.showcaseCardBody} style={{ cursor: "pointer" }}>
           {userDescription}
         </p>
       </div>
       <ul className={clsx("card__footer", styles.cardFooter)}>
         <ShowcaseCardTag tags={user.tags} />
+        {user.website ? <a href={user.website} style={{ marginLeft: 'auto' }}><LinkOutlined /></a> : null}
       </ul>
     </li>
   );
