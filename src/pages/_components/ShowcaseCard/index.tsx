@@ -84,11 +84,20 @@ function ShowcaseCard({ user, isDescription, copyCount, onCopy }) {
   // 复制
   const [copied, setShowCopied] = useState(false);
 
+  const handleUseClick = useCallback(async () => {
+    try {
+      window.open('https://gpt3a.gptnb.xyz')
+      console.log(user.desc_cn)
+    } catch (error) {
+      console.error("Error updating copy count:", error);
+    }
+  }, [user.id]);
+
   const handleCopyClick = useCallback(async () => {
     try {
       const updatedCount = await updateCopyCount(user.id);
       if (user.description) {
-        copy(userDescription);
+        copy(user.desc_cn);
       }
       setShowCopied(true);
       setTimeout(() => setShowCopied(false), 2000);
@@ -147,6 +156,15 @@ function ShowcaseCard({ user, isDescription, copyCount, onCopy }) {
             ) : (
               <Translate>复制</Translate>
             )}
+          </button>
+          <button
+            className={clsx(
+              "button button--secondary button--sm",
+              styles.showcaseCardSrcBtn
+            )}
+            type="button"
+            onClick={handleUseClick}
+          >使用
           </button>
         </div>
         <p className={styles.showcaseCardBody}>👉 {userRemark}</p>

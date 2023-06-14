@@ -139,10 +139,16 @@ function useFilteredUsers() {
 function ShowcaseHeader() {
   return (
     <section className="margin-top--lg margin-bottom--lg text--center">
-      <Heading as="h1">ChatGPT Shortcut</Heading>
-      <p>{DESCRIPTION}</p>
-      <Link className="button button--primary" to={SUBMIT_URL}>
-        <Translate id="showcase.header.button">🙏 请添加你的提示词</Translate>
+      <Heading as="h1">ChatGPT 提示词</Heading>
+      {/* <p>{DESCRIPTION}</p> */}
+      <Link className="button button--primary" to="https://gpt3a.gptnb.xyz">
+        <Translate id="showcase.header.button">试用ChatGPT3.5</Translate>
+      </Link>
+      <Link className="button button--primary ml-2" to="https://gpt4a.gptnb.xyz">
+        <Translate id="showcase.header.button">试用ChatGPT4.0</Translate>
+      </Link>
+      <Link className="button button--primary ml-2" to={SUBMIT_URL}>
+        <Translate id="showcase.header.button">添加提示词</Translate>
       </Link>
     </section>
   );
@@ -433,7 +439,7 @@ function ShowcaseCards({ isDescription }) {
 }
 
 export default function Showcase(): JSX.Element {
-  const [isDescription, setIsDescription] = useState(true);
+  const [isDescription, setIsDescription] = useState(false)
   const toggleDescription = useCallback(() => {
     setIsDescription((prevIsDescription) => !prevIsDescription);
   }, []);

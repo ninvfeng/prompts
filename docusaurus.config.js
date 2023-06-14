@@ -3,8 +3,8 @@
 
 const lightCodeTheme = require("prism-react-renderer/themes/github");
 const darkCodeTheme = require("prism-react-renderer/themes/dracula");
-const zhNavbar = require('./src/components/LocalizedNavbar/Navbar.zh');
-const enNavbar = require('./src/components/LocalizedNavbar/Navbar.en');
+const zhNavbar = require("./src/components/LocalizedNavbar/Navbar.zh");
+const enNavbar = require("./src/components/LocalizedNavbar/Navbar.en");
 
 /** @type {import('@docusaurus/types').Config} */
 const config = {
@@ -82,7 +82,7 @@ const config = {
       navbar: getNavbar(),
       footer: {
         style: "dark",
-        copyright: `Copyright © ${new Date().getFullYear()} ChatGPT Shortcut`,
+        copyright: `GPTNB Prompts Fork From ChatGPT Shortcut`,
       },
       prism: {
         theme: lightCodeTheme,
@@ -103,9 +103,11 @@ module.exports = config;
 
 process.env.DOCUSAURUS_CURRENT_LOCALE ??= "zh-Hans";
 function getNavbar() {
-  switch(process.env.DOCUSAURUS_CURRENT_LOCALE) {
-    case "en": return enNavbar;
-    default: return zhNavbar;
+  switch (process.env.DOCUSAURUS_CURRENT_LOCALE) {
+    case "en":
+      return enNavbar;
+    default:
+      return zhNavbar;
   }
 }
 /* function getAnnouncement() {
