@@ -43,7 +43,7 @@ import styles from "./styles.module.css";
 
 const TITLE = translate({
   message:
-    "GPTNB Prompts (ChatGPT 提示词)",
+    "提示词.com (ChatGPT 提示词 Prompts)",
 });
 const DESCRIPTION = translate({
   message: "让生产力加倍的 ChatGPT 快捷指令",
@@ -144,7 +144,7 @@ function useFilteredUsers() {
 function ShowcaseHeader() {
   return (
     <section className="margin-top--lg margin-bottom--lg text--center">
-      <Heading as="h1">ChatGPT 提示词</Heading>
+      <Heading as="h1">提示词.com</Heading>
       {/* <p>{DESCRIPTION}</p> */}
       <a className="button button--primary mt-2" href="https://gpt3a.gptnb.xyz">
         <Translate id="showcase.header.button">试用ChatGPT3.5</Translate>

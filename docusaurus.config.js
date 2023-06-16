@@ -101,7 +101,7 @@ const config = {
       ],
       navbar: {
         hideOnScroll: true,
-        title: "GPTNB Prompts",
+        title: "提示词.com",
         items: [
           {
             href: "https://github.com/rockbenben/ChatGPT-Shortcut",
@@ -112,7 +112,7 @@ const config = {
       },
       footer: {
         style: "dark",
-        copyright: `GPTNB Prompts Fork From AiShort`,
+        copyright: `提示词.com Fork From AiShort`,
       },
       prism: {
         theme: lightCodeTheme,

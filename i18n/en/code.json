@@ -659,8 +659,8 @@
   "userInfo.email": {
     "message": "Mail:"
   },
-  "GPTNB Prompts (ChatGPT 提示词)": {
-    "message": "GPTNB Prompts (ChatGPT 提示词)"
+  "提示词.com (ChatGPT 提示词)": {
+    "message": "提示词.com (ChatGPT 提示词)"
   },
   "message.resetPassword.success": {
     "message": "Password reset successful!"
