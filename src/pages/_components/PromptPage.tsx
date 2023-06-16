@@ -1,5 +1,5 @@
 import React, { useState, useCallback } from "react";
-import { Card, Typography, Tag, Space, Badge, Row, Col } from "antd";
+import { Card, Typography, Tag, Tooltip, Space, Badge, Row, Col } from "antd";
 import Layout from "@theme/Layout";
 import Link from "@docusaurus/Link";
 import useDocusaurusContext from "@docusaurus/useDocusaurusContext";
@@ -14,43 +14,40 @@ import { Waline } from "@site/src/components/waline";
 function PromptPage({ prompt }) {
   const { i18n } = useDocusaurusContext();
   const currentLanguage = i18n.currentLocale.split("-")[0];
+  const title = prompt[currentLanguage].title;
+  const remark = prompt[currentLanguage].remark;
+  const weight = prompt.weight;
+  const website = prompt.website;
+  const tags = prompt.tags;
 
-  const title = currentLanguage === "en" ? prompt.title_en : prompt.title;
-  const [description, setDescription] = useState(
-    currentLanguage === "zh" ? prompt.description : prompt.desc_en
-  );
+  const [mainPrompt, setMainPrompt] = useState(prompt[currentLanguage].prompt);
 
   // Switching between the native language and English
   function handleParagraphClick() {
     // If the current language is English, do nothing
     if (currentLanguage === "en") return;
 
-    if (description === prompt.description) {
-      setDescription(prompt.desc_cn);
+    if (mainPrompt === prompt[currentLanguage].prompt) {
+      setMainPrompt(prompt[currentLanguage].description);
     } else {
-      setDescription(prompt.description);
+      setMainPrompt(prompt[currentLanguage].prompt);
     }
   }
 
-  const remark = currentLanguage === "en" ? prompt.remark_en : prompt.remark;
-  const weight = prompt.weight;
-  const website = prompt.website;
-  const tags = prompt.tags;
-
-  // Handle copying the description text
+  // Handle copying the mainPrompt text
   const [copied, setShowCopied] = useState(false);
   const handleCopyClick = useCallback(async () => {
     try {
-      await updateCopyCount(prompt.id);
-      if (description) {
-        copy(description);
+      if (mainPrompt) {
+        copy(mainPrompt);
       }
+      await updateCopyCount(prompt.id);
       setShowCopied(true);
       setTimeout(() => setShowCopied(false), 2000);
     } catch (error) {
       console.error("Error updating copy count:", error);
     }
-  }, [prompt.id, description]);
+  }, [prompt.id, mainPrompt]);
 
   const walineOptions = {
     serverURL: "https://waline.newzone.top",
@@ -97,13 +94,21 @@ function PromptPage({ prompt }) {
               }
             >
               <p className={styles.showcaseCardBody}>👉 {remark}</p>
-              <p
-                onClick={handleParagraphClick}
-                className={styles.showcaseCardBody}
-                style={{ cursor: "pointer" }}
+              <Tooltip
+                title={
+                  <Translate id="tooltip.switchLang">
+                    点击切换显示语言
+                  </Translate>
+                }
               >
-                {description}
-              </p>
+                <p
+                  onClick={handleParagraphClick}
+                  className={styles.showcaseCardBody}
+                  style={{ cursor: "pointer" }}
+                >
+                  {mainPrompt}
+                </p>
+              </Tooltip>
               <Space wrap>
                 {tags.map((tag) => (
                   <Link to={"/?tags=" + tag}>

@@ -67,28 +67,29 @@ function ShowcaseCardTag({ tags }: { tags: TagType[] }) {
 function ShowcaseCard({ user, isDescription, copyCount, onCopy, onLove }) {
   const { userAuth, refreshUserAuth } = useContext(AuthContext);
 
+  const { i18n } = useDocusaurusContext();
+  const currentLanguage = i18n.currentLocale.split('-')[0];
+  const userTitle = user[currentLanguage].title;
+  const userRemark = user[currentLanguage].remark;
+
   const [paragraphText, setParagraphText] = useState(
-    isDescription ? user.description : user.desc_cn
+    isDescription ? user[currentLanguage].prompt : user[currentLanguage].description
   );
 
   useEffect(() => {
-    setParagraphText(isDescription ? user.description : user.desc_cn);
-  }, [isDescription, user.description, user.desc_cn]);
+    setParagraphText(isDescription ? user[currentLanguage].prompt : user[currentLanguage].description);
+  }, [isDescription, user[currentLanguage].prompt, user[currentLanguage].description]);
 
-  // 点击显示中文文本
+  // 点击显示母语
   function handleParagraphClick() {
-    if (paragraphText === user.description) {
-      setParagraphText(user.desc_cn);
+    if (paragraphText === user[currentLanguage].prompt) {
+      setParagraphText(user[currentLanguage].description);
     } else {
-      setParagraphText(user.description);
+      setParagraphText(user[currentLanguage].prompt);
     }
   }
-  const { i18n } = useDocusaurusContext();
-  const currentLanguage = i18n.currentLocale;
-  const userTitle = currentLanguage === "en" ? user.title_en : user.title;
-  const userRemark = currentLanguage === "en" ? user.remark_en : user.remark;
-  const userDescription =
-    currentLanguage === "zh-Hans" ? paragraphText : user.desc_en;
+  const userDescription = currentLanguage === "en" ? user.en.prompt : paragraphText;
+
   //const image = getCardImage(user);
   // 复制
   const [copied, setShowCopied] = useState(false);

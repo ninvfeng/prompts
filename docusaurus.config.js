@@ -8,7 +8,7 @@ const darkCodeTheme = require("prism-react-renderer/themes/dracula");
 
 /** @type {import('@docusaurus/types').Config} */
 const config = {
-  title: "GPTNB Prompts (ChatGPT 提示词)",
+  title: "提示词.pro (ChatGPT 提示词)",
   // tagline: '方便中文使用 ChatGPT 快捷指令',
   favicon: "img/favicon.ico",
 
@@ -31,10 +31,16 @@ const config = {
   // to replace "en" with "zh-Hans".
   i18n: {
     defaultLocale: "zh-Hans",
-    locales: ["zh-Hans", "en"],
+    locales: ["zh-Hans", "en", "ja", "ko"],
     localeConfigs: {
       en: {
         htmlLang: "en-US",
+      },
+      ja: {
+        htmlLang: "ja-JP",
+      },
+      ko: {
+        htmlLang: "ko-KR",
       },
     },
   },
@@ -70,6 +76,12 @@ const config = {
         // Use false to debug, but it incurs huge perf costs
         disableInDev: true,
       }),
+    ],
+    [
+      "docusaurus2-plugin-google-adsense",
+      {
+        dataAdClient: "ca-pub-7585955822109216",
+      },
     ],
     "./plugins/piwik.js",
     "./plugins/instantpage.js",
