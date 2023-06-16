@@ -659,8 +659,8 @@
   "userInfo.email": {
     "message": "Mail:"
   },
-  "AiShort (ChatGPT Shortcut) - 简单易用的 ChatGPT 快捷指令表，让生产力倍增！标签筛选、关键词搜索和一键复制 Prompts": {
-    "message": "AiShort (ChatGPT Shortcut) - A simple and user-friendly ChatGPT shortcut command list that doubles productivity! Includes label filtering, prompt search, and one-click prompt copying."
+  "GPTNB Prompts (ChatGPT 提示词)": {
+    "message": "GPTNB Prompts (ChatGPT 提示词)"
   },
   "message.resetPassword.success": {
     "message": "Password reset successful!"

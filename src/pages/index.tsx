@@ -43,7 +43,7 @@ import styles from "./styles.module.css";
 
 const TITLE = translate({
   message:
-    "AiShort (ChatGPT Shortcut) - 简单易用的 ChatGPT 快捷指令表，让生产力倍增！标签筛选、关键词搜索和一键复制 Prompts",
+    "GPTNB Prompts (ChatGPT 提示词)",
 });
 const DESCRIPTION = translate({
   message: "让生产力加倍的 ChatGPT 快捷指令",
@@ -146,15 +146,15 @@ function ShowcaseHeader() {
     <section className="margin-top--lg margin-bottom--lg text--center">
       <Heading as="h1">ChatGPT 提示词</Heading>
       {/* <p>{DESCRIPTION}</p> */}
-      <Link className="button button--primary" to="https://gpt3a.gptnb.xyz">
+      <a className="button button--primary mt-2" href="https://gpt3a.gptnb.xyz">
         <Translate id="showcase.header.button">试用ChatGPT3.5</Translate>
-      </Link>
-      <Link className="button button--primary ml-2" to="https://gpt4a.gptnb.xyz">
+      </a>
+      <a className="button button--primary ml-2 mt-2" href="https://gpt4a.gptnb.xyz">
         <Translate id="showcase.header.button">试用ChatGPT4.0</Translate>
-      </Link>
-      <Link className="button button--primary ml-2" to={SUBMIT_URL}>
+      </a>
+      <a className="button button--primary ml-2 mt-2" href={SUBMIT_URL}>
         <Translate id="showcase.header.button">添加提示词</Translate>
-      </Link>
+      </a>
     </section>
   );
 }

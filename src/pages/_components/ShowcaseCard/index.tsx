@@ -102,8 +102,7 @@ function ShowcaseCard({ user, isDescription, copyCount, onCopy, onLove }) {
 
   const handleUseClick = useCallback(async () => {
     try {
-      window.open('https://gpt3a.gptnb.xyz')
-      console.log(user.desc_cn)
+      window.open(`https://gpt3a.gptnb.xyz?prompt=${encodeURIComponent(user.desc_cn)}`)
     } catch (error) {
       console.error("Error updating copy count:", error);
     }

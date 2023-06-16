@@ -1,32 +1,25 @@
 const enNavbar = {
   hideOnScroll: true,
-  title: "AI Short",
+  title: "ChatGPT Prompts",
   logo: {
-    alt: "ChatGPT Shortcuts",
+    alt: "ChatGPT Prompts",
     src: "img/logo.svg",
   },
   items: [
     {
-      href: 'https://www.producthunt.com/posts/chatgpt-shortcut?utm_source=badge-featured&utm_medium=badge&utm_souce=badge-chatgpt&#0045;shortcut',
-      label: 'Find on Product Hunt',
-      target: '_blank',
-      position: 'left',
-    },
-    {
-      to: "https://www.aishort.top/en/feedback",
-      label: "Feedback",
+      to: "https://gpt3b.gptnb.xyz",
+      label: "ChatGPT3.5",
       position: "left",
     },
-    { type: "localeDropdown", position: "right" },
     {
-      href: "https://github.com/rockbenben/ChatGPT-Shortcut",
-      position: "right",
-      className: "header-github-link",
+      to: "https://gpt4a.gptnb.xyz",
+      label: "ChatGPT4.0",
+      position: "left",
     },
     {
-      href: "https://discord.gg/PZTQfJ4GjX",
+      href: "https://github.com/ninvfeng/prompts",
       position: "right",
-      className: "header-discord-link",
+      className: "header-github-link",
     },
   ],
 };
