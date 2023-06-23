@@ -102,8 +102,9 @@ function ShowcaseCard({ user, isDescription, copyCount, onCopy, onLove }) {
   };
 
   const handleUseClick = useCallback(async () => {
+    console.log(user)
     try {
-      window.open(`https://gpt3a.gptnb.xyz?prompt=${encodeURIComponent(user.desc_cn)}`)
+      window.open(`https://gpt3a.gptnb.xyz?prompt=${encodeURIComponent(user.zh.description)}`)
     } catch (error) {
       console.error("Error updating copy count:", error);
     }
@@ -112,8 +113,8 @@ function ShowcaseCard({ user, isDescription, copyCount, onCopy, onLove }) {
   const handleCopyClick = useCallback(async () => {
     try {
       const updatedCount = await updateCopyCount(user.id);
-      if (user.description) {
-        copy(user.desc_cn);
+      if (user.zh.description) {
+        copy(user.zh.description);
       }
       setShowCopied(true);
       setTimeout(() => setShowCopied(false), 2000);
