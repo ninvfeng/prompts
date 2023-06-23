@@ -146,7 +146,7 @@ function ShowcaseHeader() {
     <section className="margin-top--lg margin-bottom--lg text--center">
       <Heading as="h1">提示词.com</Heading>
       {/* <p>{DESCRIPTION}</p> */}
-      <a className="button button--primary mt-2" href="https://gpt3a.gptnb.xyz">
+      <a className="button button--primary mt-2" href="https://wan.gptnb.xyz">
         <Translate id="showcase.header.button">试用ChatGPT3.5</Translate>
       </a>
       <a className="button button--primary ml-2 mt-2" href="https://gpt4a.gptnb.xyz">
