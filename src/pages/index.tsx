@@ -504,11 +504,31 @@ function ShowcaseCards({ isDescription }) {
   );
 }
 
+function useScript(url) {
+  useEffect(() => {
+      const script = document.createElement('script');
+
+      script.src = url;
+      script.async = true;
+      script.defer = true;
+      script.dataset.domain = 'prompts.gptnb.xyz';
+
+      document.body.appendChild(script);
+
+      return () => {
+          document.body.removeChild(script);
+      }
+  }, [url]);
+}
+
 export default function Showcase(): JSX.Element {
   const [isDescription, setIsDescription] = useState(false)
   const toggleDescription = useCallback(() => {
     setIsDescription((prevIsDescription) => !prevIsDescription);
   }, []);
+
+  useScript('https://analytics.gptnb.xyz/js/script.js');
+
   return (
     <Layout title={TITLE} description={DESCRIPTION}>
       <main className="margin-vert--lg">
@@ -517,6 +537,7 @@ export default function Showcase(): JSX.Element {
           <ShowcaseFilters onToggleDescription={toggleDescription} />
           <ShowcaseCards isDescription={isDescription} />
         </AuthProvider>
+        <script defer data-domain="prompts.gptnb.xyz" src="https://analytics.gptnb.xyz/js/script.js"></script>
       </main>
     </Layout>
   );

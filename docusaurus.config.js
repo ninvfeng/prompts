@@ -8,7 +8,7 @@ const darkCodeTheme = require("prism-react-renderer/themes/dracula");
 
 /** @type {import('@docusaurus/types').Config} */
 const config = {
-  title: "提示词.pro (ChatGPT 提示词)",
+  title: "提示词.com (ChatGPT 提示词)",
   // tagline: '方便中文使用 ChatGPT 快捷指令',
   favicon: "img/favicon.ico",
 
@@ -20,8 +20,8 @@ const config = {
 
   // GitHub pages deployment config.
   // If you aren't using GitHub pages, you don't need these.
-  organizationName: "rockbenben", // Usually your GitHub org/user name.
-  projectName: "ChatGPT-Shortcut", // Usually your repo name.
+  organizationName: "ninvfeng", // Usually your GitHub org/user name.
+  projectName: "prompts", // Usually your repo name.
 
   onBrokenLinks: "throw",
   onBrokenMarkdownLinks: "warn",
