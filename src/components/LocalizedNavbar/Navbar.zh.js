@@ -12,7 +12,7 @@ const zhNavbar = {
       position: "left",
     },
     {
-      to: "https://gpt4a.gptnb.xyz",
+      to: "https://gpt4b.gptnb.xyz",
       label: "ChatGPT4.0",
       position: "left",
     },
